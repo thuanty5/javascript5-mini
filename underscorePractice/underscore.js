@@ -1,3 +1,4 @@
+
 var customers = [{
     "id": 1,
     "first_name": "Gisele",
@@ -62,9 +63,12 @@ var customers = [{
 
 // Create and array of all email addresses
 // first without using underscore's pluck, then with it.
+const emails = [];
+for(let i of customers){
+  emails.push(i.email);
+}
 
-
-
+const emails2 = _.pluck(customers, 'email');
 
 
 var inviteList1 = ['Ed', 'Fanny', 'Mildred', 'Alice', 'James'];
@@ -75,7 +79,18 @@ var inviteList2 = ['Jake', 'Mildred', 'Jimmy', 'Ed', 'Franklin']
   // Create one list of the people we want at the party (no duplicates).
   // Then remove all duplicates using _.union().
 
+let excludeDuplicatesFunc = ()=>{
+  let excludeDuplicates = [];
+  let concatArr = inviteList1.concat(inviteList2);
+  for(let i of concatArr){
+    if(excludeDuplicates.indexOf(i) === -1){
+      excludeDuplicates.push(i);
+    }
+  }
+  return excludeDuplicates;
+}
 
+const excludeDuplicates2 = _.union(inviteList1, inviteList2);
 
 
 
@@ -86,6 +101,16 @@ var inviteList2 = ['Jake', 'Mildred', 'Jimmy', 'Ed', 'Franklin']
 
 
   // Jim and Betty are having a party, but they only want to invite mutual friends. Create and array of mutual friends. First without using underscore, then using underscores _.intersection().
+
+const mutualFriends = [];
+for(var i of friendsOfJim){
+  if(friendsOfBetty.includes(i)){
+    mutualFriends.push(i);
+  }
+}
+
+const mutualFriends2 = _.intersection(friendsOfJim, friendsOfBetty);
+
 
 
 var purchases = [{
@@ -109,6 +134,30 @@ var purchases = [{
 
 // First, group the purchases by company without underscore
 // then do it again using _.groupBy()
+
+
+// function groupByCompanyFunc(arrObj){
+//   let groupByCompany = {};
+
+//   for(var i of purchases){
+//     groupByCompanyFunc.company = i.company;
+//   }
+// }
+
+
+function companyGroup(arr){
+  const companies = {};
+  arr.forEach(val => {
+    if(!companies.hasOwnProperty(val.campany)){
+      companies[val.company] = [];
+    }
+    companies[val.company].push(val)
+  })
+  return companies;
+}
+
+
+const company2 = _.groupBy(purchases, 'company');
 
 
 
